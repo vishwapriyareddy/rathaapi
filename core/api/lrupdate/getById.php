@@ -7,14 +7,14 @@ header("Content-Type: application/json");
 header("Access-Control-Allow-Methods: GET");
 
 require '../../db/config.php';
-require '../../model/Cover.php';
+require '../../model/Lrupdate.php';
 
 
 // connecting with database
 $database = new Operations;
 $conn = $database->get_config();
 
-$customer = new CoverModel($conn);
+$customer = new LrupdateModel($conn);
 
 
 if(isset($_GET['customer_id']))
@@ -29,14 +29,24 @@ if(isset($_GET['customer_id']))
       
         $customers[$row->no_of_data] = [
            'no_of_data' => $row->no_of_data,
-           'type'=>$row->type,
-           'courier_no'=>$row->courier_no,
            'company_name'=>$row->company_name,
-           'customer_name' => $row->customer_name,
-           'customer_city'=> $row->customer_city,
+           'no_of_boxes'=>$row->no_of_boxes,
+           'transport_name'=>$row->transport_name,
+           'courier_no' => $row->courier_no,
            'customer_id'=> $row->customer_id,
+           'customer_name'=> $row->customer_name,
+           'invoice_number'  => $row->invoice_number,
+           'customer_city'  => $row->customer_city,
+           'invoice_date'  => $row->invoice_date,
+           'invoice_value'=>$row->invoice_value,
+           'booking_person'=>$row->booking_person,
+           'lr_no'=>$row->lr_no,
+           'lr_date'=>$row->lr_date,
+           'cheque_no'=>$row->cheque_no,
+           'cheque_date'=>$row->cheque_date,
+           'eway_bill_no'=>$row->eway_bill_no,
+           'weight'=>$row->weight,
            'comments'=>$row->comments,
-           'transport_name'  => $row->transport_name,
            'created_date'=>$row->created_date
         ];
        
@@ -45,7 +55,7 @@ if(isset($_GET['customer_id']))
 
    }
    else{
-       echo json_encode(['message' => 'No Cover data found']);
+       echo json_encode(['message' => 'No LR Updations data found']);
    }
 
 }

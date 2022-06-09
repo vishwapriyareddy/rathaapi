@@ -7,14 +7,14 @@ header("Content-Type: application/json");
 header("Access-Control-Allow-Methods: GET");
 
 require '../../db/config.php';
-require '../../model/Cover.php';
+require '../../model/Returns.php';
 
 
 // connecting with database
 $database = new Operations;
 $conn = $database->get_config();
 
-$customer = new CoverModel($conn);
+$customer = new ReturnsModel($conn);
 
 
 if(isset($_GET['customer_id']))
@@ -31,12 +31,14 @@ if(isset($_GET['customer_id']))
            'no_of_data' => $row->no_of_data,
            'type'=>$row->type,
            'courier_no'=>$row->courier_no,
+           'customer_name'=>$row->customer_name,
+           'customer_id' => $row->customer_id,
+           'no_of_boxes'=> $row->no_of_boxes,
+           'LR_date'=> $row->LR_date,
            'company_name'=>$row->company_name,
-           'customer_name' => $row->customer_name,
-           'customer_city'=> $row->customer_city,
-           'customer_id'=> $row->customer_id,
-           'comments'=>$row->comments,
            'transport_name'  => $row->transport_name,
+           'customer_city'  => $row->customer_city,
+           'box_no'  => $row->box_no,
            'created_date'=>$row->created_date
         ];
        
@@ -45,7 +47,7 @@ if(isset($_GET['customer_id']))
 
    }
    else{
-       echo json_encode(['message' => 'No Cover data found']);
+       echo json_encode(['message' => 'No returns data found']);
    }
 
 }

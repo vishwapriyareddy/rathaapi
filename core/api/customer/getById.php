@@ -42,7 +42,7 @@ if(isset($_GET['no_of_data']))
 
    }
    else{
-       echo json_encode(['message' => 'No post data found']);
+       echo json_encode(['message' => 'No customer data found']);
    }
 
 }
