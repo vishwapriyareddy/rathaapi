@@ -22,11 +22,12 @@ class CustomerModel{
         $this->connection = $db;
     }
 
-    public function read_single_customer($no_of_data){
-        $this->no_of_data = $no_of_data;
+    public function read_single_customer($customer_id){
+        $this->customer_id = $customer_id;
 
         $query = 'SELECT
         customer_table.no_of_data,
+        customer_table.customer_id,
         customer_table.customer_name,
         customer_table.customer_email,
         customer_table.customer_pass,
@@ -34,11 +35,11 @@ class CustomerModel{
         customer_table.customer_status,
         customer_table.GST_NO
         FROM '.$this->table.'
-        WHERE customer_table.no_of_data=:no_of_data
+        WHERE customer_table.customer_id=:customer_id
         LIMIT 0,1';
 
         $customer = $this->connection->prepare($query);
-       $customer->bindValue('no_of_data',$this->no_of_data, PDO::PARAM_INT);
+       $customer->bindValue('customer_id',$this->customer_id, PDO::PARAM_INT);
 
        $customer->execute();
 
@@ -46,7 +47,7 @@ class CustomerModel{
     }
 
     public function login(){
-        $query = "SELECT `no_of_data`,`customer_email`,`customer_pass` 
+        $query = "SELECT `customer_id`,`customer_email`,`customer_pass` 
         FROM ".$this->table."
         WHERE customer_email='".$this->customer_email."' AND customer_pass='".$this->customer_pass."' ";
         $stmt = $this->connection->prepare($query);

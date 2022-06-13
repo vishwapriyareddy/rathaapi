@@ -17,9 +17,9 @@ $conn = $database->get_config();
 $customer = new CustomerModel($conn);
 
 
-if(isset($_GET['no_of_data']))
+if(isset($_GET['customer_id']))
 {
-   $data = $customer->read_single_customer($_GET['no_of_data']);
+   $data = $customer->read_single_customer($_GET['customer_id']);
  
    if($data->rowCount()){
     $customers=[];
@@ -27,8 +27,9 @@ if(isset($_GET['no_of_data']))
     while($row = $data->fetch(PDO::FETCH_OBJ))
     {
       if($row->customer_status){
-        $customers[$row->no_of_data] = [
+        $customers[$row->customer_id] = [
            'no_of_data' => $row->no_of_data,
+           'customer_id' => $row->customer_id,
            'customer_name' => $row->customer_name,
            'customer_email'=> $row->customer_email,
            'customer_pass'=> $row->customer_pass,

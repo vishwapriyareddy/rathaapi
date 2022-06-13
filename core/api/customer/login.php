@@ -27,7 +27,7 @@ if($stmt->rowCount() > 0){
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     $customer_arr=array("status"=>true,
     "message"=>"Successfull Login",
-    "no_of_data"=>$row['no_of_data'],
+    "customer_id"=>$row['customer_id'],
     "customer_email"=>$row['customer_email']);
 }else{
     $customer_arr=array("status"=>false,
