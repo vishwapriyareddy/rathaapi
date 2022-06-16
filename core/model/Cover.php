@@ -14,6 +14,7 @@ class CoverModel{
     public $customer_city;
     public $customer_id;
     public $comments;
+    public $customer_querry;
     public $transport_name;
     public $created_date;
 
@@ -51,6 +52,33 @@ class CoverModel{
         return $customer;
     }
 
-   
+    // function updateCustomer($customer){ 		
+    //     if($customer["id"]) {
+    //         $customer_querry=$customer["customer_querry"];
+          
+    //         $customerQuery="
+    //             UPDATE ".$this->table." 
+    //             SET customer_querry='".$customer_querry."'' 
+    //             WHERE id = '".$customer["id"]."'";
+    //             echo $customerQuery;
+    //         if( mysqli_query($this->dbConnect, $customerQuery)) {
+    //             $messgae = "Employee updated successfully.";
+    //             $status = 1;			
+    //         } else {
+    //             $messgae = "Employee update failed.";
+    //             $status = 0;			
+    //         }
+    //     } else {
+    //         $messgae = "Invalid request.";
+    //         $status = 0;
+    //     }
+    //     $customerResponse = array(
+    //         'status' => $status,
+    //         'status_message' => $messgae
+    //     );
+    //     header('Content-Type: application/json');
+    //     echo json_encode($customerResponse);
+    // }
+     
 }
 ?>

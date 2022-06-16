@@ -54,5 +54,7 @@ class CustomerModel{
         $stmt->execute();
         return $stmt;
     }
+    
+
 }
 ?>
