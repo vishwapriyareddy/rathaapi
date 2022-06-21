@@ -6,8 +6,10 @@ header("Access-Control-Allow-Orgin:*");
 header("Content-Type: application/json");
 header("Access-Control-Allow-Methods: GET");
 
-require '../../db/config.php';
-require '../../model/Lrupdate.php';
+
+require_once('../db/config.php');
+require_once('../model/Lrupdate.php');
+
 
 
 // connecting with database

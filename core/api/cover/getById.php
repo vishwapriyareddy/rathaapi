@@ -6,8 +6,9 @@ header("Access-Control-Allow-Orgin:*");
 header("Content-Type: application/json");
 header("Access-Control-Allow-Methods: GET");
 
-require '../../db/config.php';
-require '../../model/Cover.php';
+
+require_once('../db/config.php');
+require_once('../model/Cover.php');
 
 
 // connecting with database

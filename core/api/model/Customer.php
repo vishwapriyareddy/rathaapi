@@ -46,6 +46,14 @@ class CustomerModel{
         return $customer;
     }
 
+    // public function login(){
+    //     $query = "SELECT `customer_id`,`customer_email`,`customer_pass` 
+    //     FROM ".$this->table."
+    //     WHERE customer_email='".$this->customer_email."' AND customer_pass='".$this->customer_pass."' ";
+    //     $stmt = $this->connection->prepare($query);
+    //     $stmt->execute();
+    //     return $stmt;
+    // }
     public function login(){
         $query = "SELECT `customer_id`,`customer_email`,`customer_pass` 
         FROM ".$this->table."
@@ -54,7 +62,6 @@ class CustomerModel{
         $stmt->execute();
         return $stmt;
     }
-    
 
 }
 ?>

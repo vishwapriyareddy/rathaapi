@@ -1,6 +1,9 @@
 <?php
 class Operations
-{
+{   
+    // private $db_name = 'u808660409_rathna_pharma';
+    // private $db_username = 'u808660409_libsitservices';
+    // private $db_password = 'Lead2022@';
     private $db_host = 'localhost';
     private $db_name = 'rathanadb';
     private $db_username = 'root';

@@ -8,14 +8,14 @@ header("Access-Control-Allow-Methods: GET");
 
 
 require_once('../db/config.php');
-require_once('../../model/Returns.php');
+require_once('../model/queries.php');
 
 
 // connecting with database
 $database = new Operations;
 $conn = $database->get_config();
 
-$customer = new ReturnsModel($conn);
+$customer = new QuerryModel($conn);
 
 
 if(isset($_GET['customer_id']))
@@ -30,17 +30,10 @@ if(isset($_GET['customer_id']))
       
         $customers[$row->no_of_data] = [
            'no_of_data' => $row->no_of_data,
-           'type'=>$row->type,
-           'courier_no'=>$row->courier_no,
-           'customer_name'=>$row->customer_name,
-           'customer_id' => $row->customer_id,
-           'no_of_boxes'=> $row->no_of_boxes,
-           'LR_date'=> $row->LR_date,
-           'company_name'=>$row->company_name,
-           'transport_name'  => $row->transport_name,
-           'customer_city'  => $row->customer_city,
-           'box_no'  => $row->box_no,
-           'created_date'=>$row->created_date
+           'querry_id' => $row->querry_id,
+           'querry' => $row->querry,
+           'querry_status'=> $row->querry_status,
+           'customer_id'=> $row->customer_id,
         ];
        
     }
@@ -48,8 +41,9 @@ if(isset($_GET['customer_id']))
 
    }
    else{
-       echo json_encode(['message' => 'No returns data found']);
+       echo json_encode(['message' => 'No customer data found']);
    }
 
 }
+
 ?>
