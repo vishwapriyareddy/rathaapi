@@ -58,12 +58,12 @@ class LrupdateModel{
         lr_updation.weight,
         lr_updation.comments,
         lr_updation.created_date
-        FROM '.$this->table.' LEFT JOIN customer_table ON lr_updation.customer_id = customer_table.no_of_data
+        FROM '.$this->table.' LEFT JOIN customer_table ON lr_updation.customer_id = customer_table.customer_id
         WHERE lr_updation.customer_id=:customer_id
         ORDER BY lr_updation.created_date DESC';
 
         $customer = $this->connection->prepare($query);
-       $customer->bindValue('customer_id',$this->$customer_id, PDO::PARAM_STR);
+       $customer->bindValue('customer_id',$this->$customer_id, PDO::PARAM_INT);
 
        $customer->execute();
 

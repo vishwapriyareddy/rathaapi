@@ -42,7 +42,7 @@ class ReturnsModel{
         returns_table.customer_city,
         returns_table.box_no,
         returns_table.created_date
-        FROM '.$this->table.' LEFT JOIN customer_table ON returns_table.customer_id = customer_table.no_of_data
+        FROM '.$this->table.' LEFT JOIN customer_table ON returns_table.customer_id = customer_table.customer_id
         WHERE returns_table.customer_id=:customer_id
         ORDER BY returns_table.created_date DESC';
 
