@@ -6,10 +6,8 @@ header("Access-Control-Allow-Orgin:*");
 header("Content-Type: application/json");
 header("Access-Control-Allow-Methods: GET");
 
-
 require_once('../db/config.php');
 require_once('../model/Cover.php');
-
 
 // connecting with database
 $database = new Operations;
@@ -17,37 +15,37 @@ $conn = $database->get_config();
 
 $customer = new CoverModel($conn);
 
-
 if(isset($_GET['customer_id']))
 {
    $data = $customer->read_single_customer($_GET['customer_id']);
  
-   if($data->rowCount()){
-    $customers=[];
+   if($data->rowCount()>0){
+    $customers=array();
+    $customers['cover_data']=array();
     
-    while($row = $data->fetch(PDO::FETCH_OBJ))
-    {
-      
-        $customers[$row->no_of_data] = [
-           'no_of_data' => $row->no_of_data,
-           'type'=>$row->type,
-           'courier_no'=>$row->courier_no,
-           'company_name'=>$row->company_name,
-           'customer_name' => $row->customer_name,
-           'customer_city'=> $row->customer_city,
-           'customer_id'=> $row->customer_id,
-           'comments'=>$row->comments,
-           'transport_name'  => $row->transport_name,
-           'created_date'=>$row->created_date
-        ];
-       
+    while($row = $data->fetch(PDO::FETCH_ASSOC))
+    { 
+      extract($row);
+      $customer_item = array(
+           'no_of_data' => $no_of_data,
+           'type'=>$type,
+           'courier_no'=>$courier_no,
+           'company_name'=>$company_name,
+           'customer_name' => $customer_name,
+           'customer_city'=> $customer_city,
+           'customer_id'=> $customer_id,
+           'comments'=>$comments,
+           'transport_name'  => $transport_name,
+           'created_date'=>$created_date
+      );
+
+     //Push to data
+     array_push($customers['cover_data'],$customer_item);
     }
     echo json_encode($customers);
-
-   }
-   else{
+    }
+     else{
        echo json_encode(['message' => 'No Cover data found']);
-   }
-
+     }
 }
 ?>

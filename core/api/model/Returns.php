@@ -26,8 +26,8 @@ class ReturnsModel{
         $this->connection = $db;
     }
 
-    public function read_single_customer($no_of_data){
-        $this->no_of_data = $no_of_data;
+    public function read_single_customer($customer_id){
+        $this->customer_id = $customer_id;
 
         $query = 'SELECT
         returns_table.no_of_data,
@@ -47,7 +47,7 @@ class ReturnsModel{
         ORDER BY returns_table.created_date DESC';
 
         $customer = $this->connection->prepare($query);
-       $customer->bindValue('customer_id',$this->no_of_data, PDO::PARAM_INT);
+       $customer->bindValue('customer_id',$this->customer_id, PDO::PARAM_STR);
 
        $customer->execute();
 

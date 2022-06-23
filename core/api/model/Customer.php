@@ -13,6 +13,7 @@ class CustomerModel{
     public $customer_city;
     public $customer_status;
     public $GST_NO;
+    public $code;
 
     //database data
     private $connection;
@@ -33,27 +34,21 @@ class CustomerModel{
         customer_table.customer_pass,
         customer_table.customer_city,
         customer_table.customer_status,
-        customer_table.GST_NO
+        customer_table.GST_NO,
+        customer_table.code
         FROM '.$this->table.'
         WHERE customer_table.customer_id=:customer_id
         LIMIT 0,1';
 
         $customer = $this->connection->prepare($query);
-       $customer->bindValue('customer_id',$this->customer_id, PDO::PARAM_INT);
+       $customer->bindValue('customer_id',$this->customer_id, PDO::PARAM_STR);
 
        $customer->execute();
 
         return $customer;
     }
 
-    // public function login(){
-    //     $query = "SELECT `customer_id`,`customer_email`,`customer_pass` 
-    //     FROM ".$this->table."
-    //     WHERE customer_email='".$this->customer_email."' AND customer_pass='".$this->customer_pass."' ";
-    //     $stmt = $this->connection->prepare($query);
-    //     $stmt->execute();
-    //     return $stmt;
-    // }
+  
     public function login(){
         $query = "SELECT `customer_id`,`customer_email`,`customer_pass` 
         FROM ".$this->table."
@@ -62,6 +57,44 @@ class CustomerModel{
         $stmt->execute();
         return $stmt;
     }
+    
+    public function forgotPassword($customer_email){
+        $this->customer_email = $customer_email;
 
+        $rand = rand(999999, 111111);
+
+        $query ="UPDATE customer_table SET code = '$rand' WHERE customer_email='".$this->customer_email."'";
+
+        $customer = $this->connection->prepare($query);
+
+        $check= $customer->execute();
+ 
+    return array("status"=>$check,"otp"=>$rand);
+    }
+
+    public function newPassword($customer_email,$customer_pass){
+      $this->customer_email = $customer_email;
+      $password = base64_encode($customer_pass);
+
+      $query ="UPDATE customer_table SET customer_pass = '$password' WHERE customer_email='".$this->customer_email."'";
+
+      $customer = $this->connection->prepare($query);
+      
+      $check= $customer->execute();
+
+      return array("status"=>$check,"customer_pass"=>$password);
+  
+    }
+    // public function test_input($data) {
+	  //   $data = strip_tags($data);
+	  //   $data = htmlspecialchars($data);
+	  //   $data = stripslashes($data);
+	  //   $data = trim($data);
+	  //   return $data;
+	  // }  
+      
+    //   public function message($content, $status) {
+	  //   return json_encode(['message' => $content, 'error' => $status]);
+	  // }
 }
 ?>

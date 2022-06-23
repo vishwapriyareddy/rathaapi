@@ -19,11 +19,19 @@ $querr = new QuerryModel($conn);
 
 $api = $_SERVER['REQUEST_METHOD'];
 if ($api == 'POST') {
-    $querry_id = $querr->test_input($_POST['querry_id']);
+ 
+
+   $querry_id = $querr->test_input($_POST['querry_id']);
     $querry = $querr->test_input($_POST['querry']);
     $querry_status = $querr->test_input($_POST['querry_status']);
     $customer_id = $querr->test_input($_POST['customer_id']);
-    if ($querr->insert($querry_id, $querry, $querry_status,$customer_id)) {
+    $created_date = $querr->test_input($_POST['created_date']);
+
+  // json_encode(array(["querry_id"=> ".$querry_id.",
+  // "querry"=> ".$querry." ,
+  // "querry_status"=> ".$querry_status." ,
+  // "customer_id"=> ".$customer_id."]));
+    if ($querr->insert($querry_id, $querry, $querry_status,$customer_id,$created_date)) {
       echo $querr->message('querry added successfully!',false);
     } else {
       echo $querr->message('Failed to add an querry!',true);
@@ -31,10 +39,10 @@ if ($api == 'POST') {
   }
 
 
-//   $a = file_get_contents("php://input");
-// $data = json_decode($a, true);
+   //$a = file_get_contents("php://input");
+ //echo json_decode($a, true);
 
-// if($querr->querryDetails($data)){
+// if($data){
 
 //     http_response_code(200);
 //     echo json_encode(array(

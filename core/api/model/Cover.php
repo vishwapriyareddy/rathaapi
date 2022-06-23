@@ -26,9 +26,9 @@ class CoverModel{
         $this->connection = $db;
     }
 
-    public function read_single_customer($no_of_data){
-        $this->no_of_data = $no_of_data;
-
+    public function read_single_customer($customer_id){
+        $this->customer_id = $customer_id;
+        
         $query = 'SELECT
         cover.no_of_data,
         cover.type,
@@ -40,45 +40,17 @@ class CoverModel{
         cover.comments,
         cover.transport_name,
         cover.created_date
-        FROM '.$this->table.' LEFT JOIN customer_table ON cover.customer_id = customer_table.no_of_data
+        FROM '.$this->table.' LEFT JOIN customer_table ON cover.customer_id = customer_table.customer_id
         WHERE cover.customer_id=:customer_id
         ORDER BY cover.created_date DESC';
 
         $customer = $this->connection->prepare($query);
-       $customer->bindValue('customer_id',$this->no_of_data, PDO::PARAM_INT);
+        $customer->bindValue('customer_id',$this->customer_id, PDO::PARAM_STR);
 
-       $customer->execute();
-
-        return $customer;
+      $customer->execute();
+     
+      return $customer;
     }
 
-    // function updateCustomer($customer){ 		
-    //     if($customer["id"]) {
-    //         $customer_querry=$customer["customer_querry"];
-          
-    //         $customerQuery="
-    //             UPDATE ".$this->table." 
-    //             SET customer_querry='".$customer_querry."'' 
-    //             WHERE id = '".$customer["id"]."'";
-    //             echo $customerQuery;
-    //         if( mysqli_query($this->dbConnect, $customerQuery)) {
-    //             $messgae = "Employee updated successfully.";
-    //             $status = 1;			
-    //         } else {
-    //             $messgae = "Employee update failed.";
-    //             $status = 0;			
-    //         }
-    //     } else {
-    //         $messgae = "Invalid request.";
-    //         $status = 0;
-    //     }
-    //     $customerResponse = array(
-    //         'status' => $status,
-    //         'status_message' => $messgae
-    //     );
-    //     header('Content-Type: application/json');
-    //     echo json_encode($customerResponse);
-    // }
-     
 }
 ?>

@@ -10,7 +10,7 @@ class QuerryModel{
     public $querry;
     public $querry_status;
     public $customer_id;    
-
+    public $created_date;
     //database data
     private $connection;
     private $table ='customer_queries';
@@ -68,10 +68,10 @@ class QuerryModel{
     //     header('Content-Type: application/json');
     //     echo json_encode($empResponse);
     // }
-    public function insert($querry_id, $querry, $querry_status, $customer_id) {
-        $sql = 'INSERT INTO customer_queries (querry_id, querry, querry_status,customer_id) VALUES (:querry_id, :querry, :querry_status, :customer_id)';
+    public function insert($querry_id, $querry, $querry_status, $customer_id, $created_date) {
+        $sql = 'INSERT INTO customer_queries (querry_id, querry, querry_status,customer_id,created_date) VALUES (:querry_id, :querry, :querry_status, :customer_id, :created_date)';
         $stmt = $this->connection->prepare($sql);
-        $stmt->execute(['querry_id' => $querry_id, 'querry' => $querry, 'querry_status' => $querry_status,'customer_id' =>$customer_id]);
+        $stmt->execute(['querry_id' => $querry_id, 'querry' => $querry, 'querry_status' => $querry_status,'customer_id' =>$customer_id,'created_date'=>$created_date]);
         return true;
       }
       public function test_input($data) {

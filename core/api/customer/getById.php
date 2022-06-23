@@ -6,10 +6,8 @@ header("Access-Control-Allow-Orgin:*");
 header("Content-Type: application/json");
 header("Access-Control-Allow-Methods: GET");
 
-
 require_once('../db/config.php');
 require_once('../model/Customer.php');
-
 
 // connecting with database
 $database = new Operations;
@@ -17,36 +15,34 @@ $conn = $database->get_config();
 
 $customer = new CustomerModel($conn);
 
-
 if(isset($_GET['customer_id']))
 {
    $data = $customer->read_single_customer($_GET['customer_id']);
  
-   if($data->rowCount()){
-    $customers=[];
-    
-    while($row = $data->fetch(PDO::FETCH_OBJ))
+   if($data->rowCount()>0){
+    $customers=array();
+    $customers['customer_getById']=array();
+   
+    while($row = $data->fetch(PDO::FETCH_ASSOC))
     {
-      if($row->customer_status){
-        $customers[$row->customer_id] = [
-           'no_of_data' => $row->no_of_data,
-           'customer_id' => $row->customer_id,
-           'customer_name' => $row->customer_name,
-           'customer_email'=> $row->customer_email,
-           'customer_pass'=> $row->customer_pass,
-           'customer_city'=> $row->customer_city,
-           'customer_status'=> $row->customer_status,
-           'GST_NO'  => $row->GST_NO,
-        ];
-      } 
+      extract($row);
+      $customer_item = array(
+        'no_of_data' => $no_of_data,
+        'customer_id' => $customer_id,
+        'customer_name' => $customer_name,
+        'customer_email'=> $customer_email,
+        'customer_city'=> $customer_city,
+        'customer_status'=> $customer_status,
+        'GST_NO'  => $GST_NO,
+   );
+     //Push to data
+    array_push($customers['customer_getById'],$customer_item); 
     }
     echo json_encode($customers);
-
    }
    else{
        echo json_encode(['message' => 'No customer data found']);
    }
-
 }
 
 ?>

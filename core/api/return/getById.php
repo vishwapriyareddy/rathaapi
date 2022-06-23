@@ -8,7 +8,7 @@ header("Access-Control-Allow-Methods: GET");
 
 
 require_once('../db/config.php');
-require_once('../../model/Returns.php');
+require_once('../model/Returns.php');
 
 
 // connecting with database
@@ -22,26 +22,27 @@ if(isset($_GET['customer_id']))
 {
    $data = $customer->read_single_customer($_GET['customer_id']);
  
-   if($data->rowCount()){
-    $customers=[];
+   if($data->rowCount()>0){
+    $customers=array();
+    $customers['returns_data']=array();
     
-    while($row = $data->fetch(PDO::FETCH_OBJ))
+    while($row = $data->fetch(PDO::FETCH_ASSOC))
     {
-      
-        $customers[$row->no_of_data] = [
-           'no_of_data' => $row->no_of_data,
-           'type'=>$row->type,
-           'courier_no'=>$row->courier_no,
-           'customer_name'=>$row->customer_name,
-           'customer_id' => $row->customer_id,
-           'no_of_boxes'=> $row->no_of_boxes,
-           'LR_date'=> $row->LR_date,
-           'company_name'=>$row->company_name,
-           'transport_name'  => $row->transport_name,
-           'customer_city'  => $row->customer_city,
-           'box_no'  => $row->box_no,
-           'created_date'=>$row->created_date
-        ];
+        extract($row);
+        $customer_item = array( 'no_of_data' => $no_of_data,
+        'type'=>$type,
+        'courier_no'=>$courier_no,
+        'customer_name'=>$customer_name,
+        'customer_id' => $customer_id,
+        'no_of_boxes'=> $no_of_boxes,
+        'LR_date'=> $LR_date,
+        'company_name'=>$company_name,
+        'transport_name'  => $transport_name,
+        'customer_city'  => $customer_city,
+        'box_no'  => $box_no,
+        'created_date'=>$created_date);
+     //Push to data
+     array_push($customers['returns_data'],$customer_item);    
        
     }
     echo json_encode($customers);
