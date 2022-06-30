@@ -6,6 +6,7 @@ class LrupdateModel{
 
     //customer properties
     public $no_of_data;
+    public $lr_id;
     public $company_name;
     public $no_of_boxes;
     public $transport_name;
@@ -39,6 +40,7 @@ class LrupdateModel{
 
         $query = 'SELECT
         lr_updation.no_of_data,
+        lr_updation.lr_id,
         lr_updation.company_name,
         lr_updation.no_of_boxes,
         lr_updation.transport_name,
@@ -63,13 +65,11 @@ class LrupdateModel{
         ORDER BY lr_updation.created_date DESC';
 
         $customer = $this->connection->prepare($query);
-       $customer->bindValue('customer_id',$this->$customer_id, PDO::PARAM_INT);
+        $customer->bindValue('customer_id',$this->customer_id, PDO::PARAM_STR);
 
        $customer->execute();
 
         return $customer;
     }
-
-   
 }
 ?>

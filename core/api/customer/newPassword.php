@@ -21,6 +21,5 @@ if(isset($_REQUEST['customer_email']))
    $data = $customer->newPassword($_REQUEST['customer_email'],$_REQUEST['customer_pass']);
       list($check,$password)=isset($data); 
      echo json_encode($data);
-
 }
 ?>

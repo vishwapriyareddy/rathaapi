@@ -8,33 +8,37 @@ header("Access-Control-Allow-Methods: GET");
 
 
 require_once('../db/config.php');
-require_once('../model/queries.php');
+require_once('../model/query.php');
 
 
 // connecting with database
 $database = new Operations;
 $conn = $database->get_config();
 
-$customer = new QuerryModel($conn);
+$customer = new QueryModel($conn);
 
 
 if(isset($_GET['customer_id']))
 {
    $data = $customer->read_single_customer($_GET['customer_id']);
  
-   if($data->rowCount()){
-    $customers=[];
+   if($data->rowCount()>0){
+    $customers=array();
+    $customers['query_data']=array();
     
-    while($row = $data->fetch(PDO::FETCH_OBJ))
+    while($row = $data->fetch(PDO::FETCH_ASSOC))
     {
+        extract($row);
+        $customer_item = array(
+            'no_of_data' => $no_of_data,
+            'query_id' => $query_id,
+            'query' => $query,
+            'query_status'=> $query_status,
+            'customer_id'=> $customer_id,
+        );
       
-        $customers[$row->no_of_data] = [
-           'no_of_data' => $row->no_of_data,
-           'querry_id' => $row->querry_id,
-           'querry' => $row->querry,
-           'querry_status'=> $row->querry_status,
-           'customer_id'=> $row->customer_id,
-        ];
+       //Push to data
+     array_push($customers['query_data'],$customer_item);  
        
     }
     echo json_encode($customers);

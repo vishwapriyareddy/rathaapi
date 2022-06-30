@@ -1,7 +1,6 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_error',1);
-
 class CustomerModel{
 
     //customer properties
@@ -12,8 +11,7 @@ class CustomerModel{
     public $customer_pass;
     public $customer_city;
     public $customer_status;
-    public $GST_NO;
-    public $code;
+    public $otp_code;
 
     //database data
     private $connection;
@@ -34,8 +32,6 @@ class CustomerModel{
         customer_table.customer_pass,
         customer_table.customer_city,
         customer_table.customer_status,
-        customer_table.GST_NO,
-        customer_table.code
         FROM '.$this->table.'
         WHERE customer_table.customer_id=:customer_id
         LIMIT 0,1';
@@ -59,17 +55,23 @@ class CustomerModel{
     }
     
     public function forgotPassword($customer_email){
-        $this->customer_email = $customer_email;
+        if(($customer_email!="")){
+            $this->customer_email = $customer_email;
 
-        $rand = rand(999999, 111111);
+            $rand = rand(999999, 111111);
 
-        $query ="UPDATE customer_table SET code = '$rand' WHERE customer_email='".$this->customer_email."'";
+            $query ="UPDATE customer_table SET otp_code = '$rand' WHERE customer_email='".$this->customer_email."'";
 
-        $customer = $this->connection->prepare($query);
+            $customer = $this->connection->prepare($query);
 
-        $check= $customer->execute();
+            $check= $customer->execute();
  
-    return array("status"=>$check,"otp"=>$rand);
+            return array("status"=>$check,"otp"=>$rand);
+        }
+        else{
+            return array("status"=> "Please fill the email");
+
+        }
     }
 
     public function newPassword($customer_email,$customer_pass){
@@ -85,16 +87,6 @@ class CustomerModel{
       return array("status"=>$check,"customer_pass"=>$password);
   
     }
-    // public function test_input($data) {
-	  //   $data = strip_tags($data);
-	  //   $data = htmlspecialchars($data);
-	  //   $data = stripslashes($data);
-	  //   $data = trim($data);
-	  //   return $data;
-	  // }  
-      
-    //   public function message($content, $status) {
-	  //   return json_encode(['message' => $content, 'error' => $status]);
-	  // }
+    
 }
 ?>

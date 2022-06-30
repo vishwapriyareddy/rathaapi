@@ -18,32 +18,20 @@ $customer = new CustomerModel($conn);
 if(isset($_REQUEST['customer_email']))
 {
    $data = $customer->forgotPassword($_REQUEST['customer_email']);
-  //  if($data->rowCount()){
-  //   $customers=[];
-    
-    // while($row = $data->fetch(PDO::FETCH_OBJ))
-    // {
-
-      list($check,$rand)=isset($data); 
-  //    echo json_encode($check);
-      // if($data==true){
-
-      //   $to = $this->customer_email;
-      //   $subject = 'Your OTP is';
-      //   $message = '<h1>OTP : <b style="color:blue">'. $rand .'</b><h1>';
-      //   $header = 'From:rathna@gmail.com';      
-      //   mail($to,$subject,$message,$header);
-      
-    
-      //  }else{
-      //   echo json_encode(['message' => 'The mail cannot be sent']);
-      //  }
-   echo json_encode($data);
-
-  //  }
-  //  else{
-  //      echo json_encode(['message' => 'No customer data found']);
-  //  }
+       
+    list($check,$rand)=isset($data); 
+       
+      if($data==true){
+        // $to = $this->customer_email;
+        // $subject = 'Your OTP is';
+        // $message = '<h1>OTP : <b style="color:blue">$data['otp']</b><h1>';
+        // $header = 'From:vishwapriyareddy24798@gmail.com';      
+        // mail($to,$subject,$message,$header);
+        echo json_encode($data);
+       }else{
+        echo json_encode(['message' => 'The mail cannot be sent']);
+       }
+       
 }
 
 ?> 

@@ -58,10 +58,5 @@ if($customer_email&&$customer_pass){
         ]);
      }
 }
-//else{
-//     echo json_encode([
-//         'error' => true,
-//         'message' => 'You are missing information!'
-//     ]);
-// }
+
 ?>

@@ -17,7 +17,9 @@ $customer = new LrupdateModel($conn);
 
 if(isset($_GET['customer_id']))
 {
-   $data = $customer->read_single_customer($_GET['customer_id']);
+   // $data =$_GET['customer_id'];
+
+$data = $customer->read_single_customer($_GET['customer_id']);
  
    if($data->rowCount()>0){
     $customers=array();
@@ -28,6 +30,7 @@ if(isset($_GET['customer_id']))
         extract($row);
         $customer_item = array(
             'no_of_data' => $no_of_data,
+            'lr_id' =>$lr_id,
             'company_name'=>$company_name,
             'no_of_boxes'=>$no_of_boxes,
             'transport_name'=>$transport_name,
@@ -54,10 +57,10 @@ if(isset($_GET['customer_id']))
     }
     echo json_encode($customers);
 
-   }
+}
    else{
        echo json_encode(['message' => 'No LR Updations data found']);
    }
 
-}
+ }
 ?>

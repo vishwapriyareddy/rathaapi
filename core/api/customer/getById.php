@@ -33,7 +33,7 @@ if(isset($_GET['customer_id']))
         'customer_email'=> $customer_email,
         'customer_city'=> $customer_city,
         'customer_status'=> $customer_status,
-        'GST_NO'  => $GST_NO,
+        
    );
      //Push to data
     array_push($customers['customer_getById'],$customer_item); 
