@@ -17,7 +17,6 @@ $customer = new LrupdateModel($conn);
 
 if(isset($_GET['customer_id']))
 {
-   // $data =$_GET['customer_id'];
 
 $data = $customer->read_single_customer($_GET['customer_id']);
  
@@ -56,7 +55,6 @@ $data = $customer->read_single_customer($_GET['customer_id']);
        
     }
     echo json_encode($customers);
-
 }
    else{
        echo json_encode(['message' => 'No LR Updations data found']);

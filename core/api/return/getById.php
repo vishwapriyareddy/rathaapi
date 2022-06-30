@@ -6,17 +6,14 @@ header("Access-Control-Allow-Orgin:*");
 header("Content-Type: application/json");
 header("Access-Control-Allow-Methods: GET");
 
-
 require_once('../db/config.php');
 require_once('../model/Returns.php');
-
 
 // connecting with database
 $database = new Operations;
 $conn = $database->get_config();
 
 $customer = new ReturnsModel($conn);
-
 
 if(isset($_GET['customer_id']))
 {
@@ -41,8 +38,9 @@ if(isset($_GET['customer_id']))
         'customer_city'  => $customer_city,
         'box_no'  => $box_no,
         'created_date'=>$created_date);
-     //Push to data
-     array_push($customers['returns_data'],$customer_item);    
+     
+        //Push to data
+        array_push($customers['returns_data'],$customer_item);    
        
     }
     echo json_encode($customers);
