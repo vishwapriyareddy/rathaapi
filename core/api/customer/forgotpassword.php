@@ -15,7 +15,14 @@ $conn = $database->get_config();
 
 $customer = new CustomerModel($conn);
 
-if(isset($_REQUEST['customer_email']))
+$customer->customer_email = isset($_GET['customer_email']) ? $_GET['customer_email'] :die();
+//$customer->customer_pass = base64_encode(isset($_GET['customer_pass'])?$_GET['customer_pass']:die());
+
+$stmt = $customer->checkEmail();
+
+if($stmt->rowCount() > 0){
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    if(isset($_REQUEST['customer_email']))
 {
    $data = $customer->forgotPassword($_REQUEST['customer_email']);
        
@@ -31,7 +38,16 @@ if(isset($_REQUEST['customer_email']))
        }else{
         echo json_encode(['message' => 'The mail cannot be sent']);
        }
-       
+}
+
+    // $customer_arr=array("status"=>true,
+    // "message"=>"Successfull",
+    // "customer_email"=>$row['customer_email']);
+}else{
+    http_response_code(400);
+    echo json_encode(["status"=>false,
+    "message"=>"Invalid email",
+   ]);
 }
 
 ?> 

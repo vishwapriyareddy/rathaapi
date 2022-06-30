@@ -53,7 +53,14 @@ class CustomerModel{
         $stmt->execute();
         return $stmt;
     }
-    
+    public function checkEmail(){
+        $query = "SELECT `customer_email` 
+        FROM ".$this->table."
+        WHERE customer_email='".$this->customer_email."'";
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }  
     public function forgotPassword($customer_email){
         if(($customer_email!="")){
             $this->customer_email = $customer_email;

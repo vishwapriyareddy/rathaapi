@@ -28,13 +28,11 @@ if(isset($_GET['customer_id']))
       extract($row);
       $customer_item = array(
            'no_of_data' => $no_of_data,
-           'type'=>$type,
+           'cover_type'=>$cover_type,
            'courier_no'=>$courier_no,
            'company_name'=>$company_name,
-           'customer_name' => $customer_name,
-           'customer_city'=> $customer_city,
            'customer_id'=> $customer_id,
-           'comments'=>$comments,
+           'comment'=>$comment,
            'transport_name'  => $transport_name,
            'created_date'=>$created_date
       );

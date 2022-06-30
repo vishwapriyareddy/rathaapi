@@ -6,15 +6,11 @@ class CoverModel{
 
     //customer properties
     public $no_of_data;
-    public $id;
-    public $type;
+    public $cover_type;
     public $courier_no;
     public $company_name;
-    public $customer_name;
-    public $customer_city;
     public $customer_id;
-    public $comments;
-    public $customer_querry;
+    public $comment;
     public $transport_name;
     public $created_date;
 
@@ -31,13 +27,11 @@ class CoverModel{
         
         $query = 'SELECT
         cover.no_of_data,
-        cover.type,
+        cover.cover_type,
         cover.courier_no,
         cover.company_name,
-        cover.customer_name,
-        cover.customer_city,
         cover.customer_id,
-        cover.comments,
+        cover.comment,
         cover.transport_name,
         cover.created_date
         FROM '.$this->table.' LEFT JOIN customer_table ON cover.customer_id = customer_table.customer_id
