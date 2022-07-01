@@ -29,9 +29,8 @@ class CustomerModel{
         customer_table.customer_id,
         customer_table.customer_name,
         customer_table.customer_email,
-        customer_table.customer_pass,
         customer_table.customer_city,
-        customer_table.customer_status,
+        customer_table.customer_status
         FROM '.$this->table.'
         WHERE customer_table.customer_id=:customer_id
         LIMIT 0,1';
@@ -73,7 +72,7 @@ class CustomerModel{
 
             $check= $customer->execute();
  
-            return array("status"=>$check,"otp"=>$rand);
+            return array("status"=>$check,"otp"=>$rand,"message"=>"Valid Email");
         }
         else{
             return array("status"=> "Please fill the email");

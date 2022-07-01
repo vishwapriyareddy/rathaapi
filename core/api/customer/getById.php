@@ -21,7 +21,7 @@ if(isset($_GET['customer_id']))
  
    if($data->rowCount()>0){
     $customers=array();
-    $customers['customer_getById']=array();
+   // $customers['customer_getById']=array();
    
     while($row = $data->fetch(PDO::FETCH_ASSOC))
     {
@@ -33,9 +33,9 @@ if(isset($_GET['customer_id']))
         'customer_email'=> $customer_email,
         'customer_city'=> $customer_city,
         'customer_status'=> $customer_status,
-     );
+   );
      //Push to data
-    array_push($customers['customer_getById'],$customer_item); 
+    array_push($customers,$customer_item); 
     }
     echo json_encode($customers);
    }

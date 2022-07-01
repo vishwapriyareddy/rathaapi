@@ -16,7 +16,7 @@ $conn = $database->get_config();
 $customer = new CustomerModel($conn);
 
 $customer->customer_email = isset($_GET['customer_email']) ? $_GET['customer_email'] :die();
-//$customer->customer_pass = base64_encode(isset($_GET['customer_pass'])?$_GET['customer_pass']:die());
+
 
 $stmt = $customer->checkEmail();
 
@@ -40,9 +40,7 @@ if($stmt->rowCount() > 0){
        }
 }
 
-    // $customer_arr=array("status"=>true,
-    // "message"=>"Successfull",
-    // "customer_email"=>$row['customer_email']);
+   
 }else{
     http_response_code(400);
     echo json_encode(["status"=>false,
