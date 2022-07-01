@@ -35,9 +35,9 @@ if(isset($_GET['customer_id']))
         'customer_status'=> $customer_status,
    );
      //Push to data
-    array_push($customers,$customer_item); 
+  //  array_push($customers,$customer_item); 
     }
-    echo json_encode($customers);
+    echo json_encode($customer_item);
    }
    else{
        echo json_encode(['message' => 'No customer data found']);
