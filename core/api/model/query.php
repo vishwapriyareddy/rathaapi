@@ -24,7 +24,6 @@ class QueryModel{
 
         $query = 'SELECT
         customer_query.no_of_data,
-        customer_query.query_id,
         customer_query.query,
         customer_query.query_status,
         customer_query.customer_id,
@@ -34,18 +33,18 @@ class QueryModel{
         ORDER BY customer_query.created_date DESC';
 
         $customer = $this->connection->prepare($query);
-       $customer->bindValue('customer_id',$this->customer_id, PDO::PARAM_STR);
+        $customer->bindValue('customer_id',$this->customer_id, PDO::PARAM_STR);
 
        $customer->execute();
 
         return $customer;
     }
     
-    public function insert($query_id, $query, $query_status, $customer_id, $created_date) {
-       if ($query_id!=""&&$query!=""&&$query_status!=""&&$customer_id!=""&&$created_date!="") {
-           $sql = 'INSERT INTO customer_query (query_id, query, query_status,customer_id,created_date) VALUES (:query_id, :query, :query_status, :customer_id, :created_date)';
+    public function insert( $query, $query_status, $customer_id, $created_date) {
+       if ($query!=""&&$query_status!=""&&$customer_id!=""&&$created_date!="") {
+           $sql = 'INSERT INTO customer_query ( query, query_status,customer_id,created_date) VALUES (:query_id, :query, :query_status, :customer_id, :created_date)';
            $stmt = $this->connection->prepare($sql);
-           $stmt->execute(['query_id' => $query_id, 'query' => $query, 'query_status' => $query_status,'customer_id' =>$customer_id,'created_date'=>$created_date]);
+           $stmt->execute(['query' => $query, 'query_status' => $query_status,'customer_id' =>$customer_id,'created_date'=>$created_date]);
            return true;
        }else{
         return false;
@@ -63,8 +62,5 @@ class QueryModel{
     public function message($content, $status) {
 	    return json_encode(['message' => $content, 'error' => $status]);
 	  }
-
-
-
 }
 ?>

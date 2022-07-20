@@ -31,7 +31,6 @@ if(isset($_GET['customer_id']))
         extract($row);
         $customer_item = array(
             'no_of_data' => $no_of_data,
-            'query_id' => $query_id,
             'query' => $query,
             'query_status'=> $query_status,
             'customer_id'=> $customer_id,
